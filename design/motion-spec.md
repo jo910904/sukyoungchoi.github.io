@@ -11,12 +11,17 @@ Motion is intentionally quiet so the academic content remains the focus.
 | Research CTA | Original position | 2px higher; arrow 2px lower | Hover only, 160ms; focus outline stays still |
 | Research and expression image buttons | Original image scale | Image scale 1.015 | Hover or keyboard focus, 180ms; captions stay visible |
 | Image dialog | 8px lower, 98.5% scale, transparent | Original position and scale, opaque | Open, 180ms; native close and focus return stay immediate |
+| Section headings and research cards | 92% opacity, 8px lower | Full opacity, original position | Once when 10% enters the viewport, 400ms headings / 320ms cards, no stagger |
 
 Use the existing `site.css` and native dialog behavior. Do not add an animation
 package or continuous motion. Keep content readable during page load. Use opacity
 and transforms for entrance and position effects, plus a brief CTA background-color
 transition. Disable these effects and smooth scrolling when
 `prefers-reduced-motion: reduce` is active.
+Cancel an in-progress scroll reveal if that preference becomes active.
+Scroll reveal is triggered by viewport entry, not tied to scrolling distance.
+Content remains fully visible until its brief animation starts; there is no
+hidden waiting state or parallax movement.
 
 References from the saved Threads archive:
 
