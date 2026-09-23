@@ -9,6 +9,7 @@
   --brand: #a94d5c;
   --line: #e8dadd;
   --focus: #14254f;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *,
@@ -128,15 +129,28 @@ h3 {
 }
 
 .site-header nav a {
+  position: relative;
   color: var(--ink);
   font-size: 0.94rem;
   font-weight: 700;
   text-decoration: none;
 }
 
-.site-header nav a:hover,
-.site-header nav a:focus-visible {
-  text-decoration: underline;
+.site-header nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.3rem;
+  left: 0;
+  height: 2px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.site-header nav a:hover::after,
+.site-header nav a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .nav-arrow {
@@ -282,10 +296,15 @@ h3 {
 .image-trigger {
   display: block;
   width: 100%;
+  overflow: hidden;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: zoom-in;
+}
+
+.image-trigger:focus-visible {
+  outline-offset: -4px;
 }
 
 .image-trigger:hover img {
@@ -725,5 +744,82 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy {
+    animation: hero-enter 360ms var(--motion-ease) both;
+  }
+
+  .hero-art {
+    animation: art-enter 440ms var(--motion-ease) both;
+  }
+
+  .site-header nav a::after {
+    transition: transform 160ms var(--motion-ease);
+  }
+
+  .button-dark {
+    transition: background-color 160ms ease, transform 160ms var(--motion-ease);
+  }
+
+  .button-dark:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-dark:active {
+    transform: translateY(0);
+  }
+
+  .button-dark span {
+    transition: transform 160ms var(--motion-ease);
+  }
+
+  .button-dark:hover span {
+    transform: translateY(2px);
+  }
+
+  .image-trigger img {
+    transition: transform 180ms var(--motion-ease);
+  }
+
+  .image-trigger:hover img,
+  .image-trigger:focus-visible img {
+    transform: scale(1.015);
+  }
+
+  .image-dialog[open] {
+    animation: dialog-enter 180ms var(--motion-ease) both;
+  }
+
+  .image-dialog[open]::backdrop {
+    animation: backdrop-enter 180ms ease-out both;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0.65;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes art-enter {
+  from {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+}
+
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
   }
 }
