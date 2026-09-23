@@ -11,7 +11,7 @@ Motion is intentionally quiet so the academic content remains the focus.
 | Research CTA | Original position | 2px higher; arrow 2px lower | Hover only, 160ms; focus outline stays still |
 | Research and expression image buttons | Original image scale | Image scale 1.015 | Hover or keyboard focus, 180ms; captions stay visible |
 | Image dialog | 8px lower, 98.5% scale, transparent | Original position and scale, opaque | Open, 180ms; native close and focus return stay immediate |
-| Section headings and research cards | 92% opacity, 8px lower | Full opacity, original position | Once when 10% enters the viewport, 400ms headings / 320ms cards, no stagger |
+| Academic and research intros, later section headings, and research cards | 88% opacity, 20px lower | Full opacity, original position | Once when 10% enters the viewport with a 25% bottom inset, 600ms intros/headings / 520ms cards, no stagger |
 
 Use the existing `site.css` and native dialog behavior. Do not add an animation
 package or continuous motion. Keep content readable during page load. Use opacity

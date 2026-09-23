@@ -29,7 +29,7 @@ dialog.addEventListener('close', () => {
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if ('IntersectionObserver' in window && 'animate' in Element.prototype) {
-  const motionEase = getComputedStyle(document.documentElement).getPropertyValue('--motion-ease').trim();
+  const motionEase = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
   const revealObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
@@ -38,18 +38,27 @@ if ('IntersectionObserver' in window && 'animate' in Element.prototype) {
 
       entry.target.animate(
         [
-          { opacity: 0.92, transform: 'translateY(8px)' },
+          { opacity: 0.88, transform: 'translateY(20px)' },
           { opacity: 1, transform: 'translateY(0)' }
         ],
         {
-          duration: entry.target.matches('.media-card') ? 320 : 400,
+          duration: entry.target.matches('.media-card') ? 520 : 600,
           easing: motionEase
         }
       );
     }
-  }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -25% 0px' });
 
-  const revealTargets = document.querySelectorAll('main > .section h2, .research-grid .media-card, .site-footer h2');
+  const revealTargets = document.querySelectorAll(`
+    .background-section .split-intro,
+    .research-section .research-intro,
+    .research-grid .media-card,
+    .honors-section h2,
+    .grants-section h2,
+    .skills-section h2,
+    .expression-section h2,
+    .site-footer h2
+  `);
   revealTargets.forEach((target) => revealObserver.observe(target));
 
   reducedMotion.addEventListener('change', () => {
